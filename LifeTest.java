@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 public class LifeTest {
     
     @Test
+    // Eine neue Zelle an einem bisher belebten Rasterpunkt entsteht, wenn genau drei benachbarte Rasterpunkte mit lebenden Zellen besetzt sind
     public void createNewCell() {
         
         // Arrange: drei lebende Zellen
@@ -17,20 +18,26 @@ public class LifeTest {
 
         // Assert: Rasterpunkt mit drei Nachbarn sollte jetzt leben
         assertTrue(nextGen.isAlive(1, 1));
+
+        //***
+        //-*-
     }
 
 
-    @Test
+    //@Test
+    // Lebende Zellen mit weniger als zwei lebenden Nachbarn sterben in der Folgegeneration an Einsamkeit.
     public void destroyLonelyCell() {
     }
 
 
-    @Test
+    //@Test
+    // Eine lebende Zelle mit zwei oder drei lebenden Nachbarn bleibt in der Folgegeneration am Leben.
     public void keepAliveCell() {
     }
 
 
-    @Test
+    //@Test
+    // Lebende Zellen mit mehr als drei lebenden Nachbarn sterben in der Folgegeneration an Überbevölkerung.
     public void destroyCrowdedCell() {
     }
 
