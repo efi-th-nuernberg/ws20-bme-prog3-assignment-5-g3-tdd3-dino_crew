@@ -2,7 +2,6 @@ public class Life implements ILife {
   
   private final int SIZE = 5;
   private int[][] actualGeneration = new int[SIZE][SIZE];
-  private int[][] newGeneration = new int[SIZE][SIZE];
 
   public static void main(String[] args) {
     Life l = new Life(new String[] {  "     ",
@@ -28,12 +27,18 @@ public class Life implements ILife {
 
   @Override
   public void nukeAll() {
-    // destroy all
+    for (int y = 0; y < SIZE; y++)
+      for (int x = 0; x < SIZE; x++)
+        setDead(x,y);
   }
 
   @Override
   public void setAlive(int x, int y) {
     actualGeneration[y][x] = 1;
+    for(int i = 0; i < SIZE; i++){
+      for(int j = 0; j < SIZE; j++){
+      }
+    }
   }
 
   @Override
@@ -43,40 +48,34 @@ public class Life implements ILife {
 
   @Override
   public boolean isAlive(int x, int y) {
-    if(actualGeneration[y][x] == 1) return true;
-    else return false;
-  }
-
-  public int checkForNextGen(int x, int y){
-    // createNewCell: drei Nachbarn = setAlive
-    // destroyLonelyCell: weniger als zwei lebende Nachbarn = setDead
-    // keepAliveCell: zwei oder drei lebende Nachbarn = isAlive(bleibt am leben)
-    // destroyCrowdedCell: mehr als drei lebende Nachbarn = setDead
-    int neighbours = 0;
-    for (int i = 0; i < (y+1); i++)
-      for (int j = 0; j < (x+1); j++)
-        if(x>=0 && x<SIZE && y>=0 && y<SIZE)
-          if(actualGeneration[y][x] == 1)
-            neighbours++;
-    if(neighbours==2 || neighbours==3) return(1);
-    return(0);
+  if(actualGeneration[y][x] == 1) return true;
+  return false;
   }
 
   @Override
   public ILife nextGeneration() {
-    for (int y = 0; y < SIZE; y++)
-      for (int x = 0; x < SIZE; x++)
-        newGeneration[y][x] = checkForNextGen(x,y);
-    actualGeneration = newGeneration;
-    
-    String l[] = new String[SIZE];
-    for(int i = 0; i < SIZE; i++){
-      for(int j = 0; j < SIZE; j++){
-        if(isAlive(i,j)) l[i]+=1;
-        else l[i]+=0;
+    Life nextGen = new Life();  
+    for (int y = 0; y < SIZE; y++){
+      for (int x = 0; x < SIZE; x++){
+        if(actualGeneration[y][x]==1 && (countNeighbours(x,y)==2||countNeighbours(x,y)==3)){
+          nextGen.setAlive(x,y);
+        } else if (actualGeneration[y][x]==0 && countNeighbours(x,y)==3){
+          nextGen.setAlive(x,y);
+        } 
       }
     }
-    Life nextGen = new Life(l);
     return nextGen;
+  }
+
+  public int countNeighbours(int x, int y){
+    int neighbours = 0;
+    for (int j = (y-1); j <= (y+1); j++)
+      if(j>=0 && j<SIZE)
+        for (int i = (x-1); i <= (x+1); i++)
+          if(i>=0 && i<SIZE)
+            if(actualGeneration[j][i] == 1)
+              neighbours++;
+    if(actualGeneration[y][x]==1) neighbours--;   
+    return(neighbours);
   }
 }

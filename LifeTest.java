@@ -23,7 +23,7 @@ public class LifeTest {
         //-*-
     }
 
-    //@Test
+    @Test
     // Lebende Zellen mit weniger als zwei lebenden Nachbarn sterben in der Folgegeneration an Einsamkeit.
     public void destroyLonelyCell() {
         // Arrange: eine lebende Zellen
@@ -38,7 +38,7 @@ public class LifeTest {
         assertFalse(nextGen.isAlive(1, 1));
     }
 
-    //@Test
+    @Test
     // Eine lebende Zelle mit zwei oder drei lebenden Nachbarn bleibt in der Folgegeneration am Leben.
     public void keepAliveCell() {
       // Arrange: drei lebende Zellen
@@ -55,7 +55,7 @@ public class LifeTest {
         assertTrue(nextGen.isAlive(1, 1));
     }
 
-    //@Test
+    @Test
     // Lebende Zellen mit mehr als drei lebenden Nachbarn sterben in der Folgegeneration an Überbevölkerung.
     public void destroyCrowdedCell() {
       // Arrange: fuenf lebende Zellen
